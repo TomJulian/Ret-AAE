@@ -9,51 +9,36 @@ import yaml
 file="./config.yaml"
 
 config = yaml.load(open(file, "r"), Loader=yaml.FullLoader)
-# Set device and model parameters
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-input_dim = (1, 224, 224)  # Adjust as needed
-latent_dim = 256  # Adjust as needed
+input_dim = (1, 224, 224)
+latent_dim = 256
 
-# Instantiate your model
 model = newAECBAM3(input_dim, latent_dim).to(device)
 
-# Load the checkpoint (adjust the path and key names as needed)
-checkpoint_path = "/home/dnanexus/ckpt-model-newAECBAM3-run-still-river-13-epoch-249-time-2025-04-07-0047.pt"
-#checkpoint = torch.load(checkpoint_path, map_location=device)
-#model.load_state_dict(checkpoint['state_dict'])  # Or simply: model.load_state_dict(checkpoint)
+def load_encoder_only_into_full(model, enc_ckpt_path, strict=False):
+    ckpt = torch.load(enc_ckpt_path, map_location="cpu")
+    enc_sd = ckpt["encoder_state_dict"]
+    res = model.load_state_dict(enc_sd, strict=strict)
+    print("Missing keys:", res.missing_keys)
+    print("Unexpected keys:", res.unexpected_keys)
 
+load_encoder_only_into_full(model, "./OCT_encoder.pt", strict=False)
 
-def load_ddp_checkpoint(filename, model, optimizer=None):
-    checkpoint = torch.load(filename, map_location=torch.device('cpu'))  # Ensure compatibility with CPU
-    state_dict = checkpoint['model_state_dict']
-    new_state_dict = {}
-    for key, value in state_dict.items():
-        new_key = key.replace("module.", "")  # Remove 'module.' prefix
-        new_state_dict[new_key] = value
-    model.load_state_dict(new_state_dict)
-    if optimizer is not None and 'optimizer_state_dict' in checkpoint:
-        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    return checkpoint.get('epoch', None)  # Return epoch if available
-load_ddp_checkpoint(checkpoint_path, model)
 
 model.eval()
 
-# Define the image transform
 preprocess = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
 ])
 
-# Path to the directory containing images
 images_dir = config['image_dir']
 out_dir = config['out_dir']
+csv_path = os.path.join(out_dir, "CFP_embeddings.csv")
 
-# List to store the table rows
 rows = []
 
-# Iterate through each file in the directory
 for image_name in os.listdir(images_dir):
-    # Check if the file has an image extension
     if image_name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff')):
         image_path = os.path.join(images_dir, image_name)
         img = Image.open(image_path).convert("L")
@@ -67,11 +52,8 @@ for image_name in os.listdir(images_dir):
             row[f"embedding_{i}"] = value
         rows.append(row)
 
-# Create a DataFrame from the collected rows
 df = pd.DataFrame(rows)
 
-# Optionally, save the DataFrame to a CSV file
-df.to_csv(f'{out_dir}"OCT_embeddings.csv", index=False)
+df.to_csv(csv_path, index=False)
 
-# Display the first few rows of the table
 print(df.head())
