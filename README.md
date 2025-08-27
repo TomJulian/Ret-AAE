@@ -1,6 +1,6 @@
 # Ret-AAE
 
-This is the public repo for the Ret-AAE models (adversarial autoencoders for optical coherence tomography and colour fundus photographs). The encoder is shared, but the decoder cannot be shared, given UK Biobank’s policies on generative AI trained using their data.
+This is the public repo for the Ret-AAE models (adversarial autoencoders for optical coherence tomography and colour fundus photographs). The encoder is shared, but the decoder cannot be shared, given UK Biobank’s policies on generative AI trained using their data. The encoder can be utilised to produce normally distributed vector embeddings to represent ophthalmic images. These vector embeddings can be used to explore associations between ophthalmic features and other traits. 
 
 The pre-print paper related to this repo is available at:  
 https://www.medrxiv.org/content/10.1101/2025.08.04.25332962v1.full-text
