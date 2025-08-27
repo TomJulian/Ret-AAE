@@ -25,7 +25,6 @@ Download the model checkpoints from the **Releases** section:
 
 ## Downloading repo
 Clone this repository:
-
 ```git clone https://github.com/TomJulian/Ret-AAE.git```
 
 ## Set configs
@@ -38,14 +37,17 @@ Install the required packages with this code:
 
 source retaae/bin/activate
 
-pip3 install -r ./requirements.txt```
+pip3 install -r ./requirements.txt
+```
 
 ## Run model
-For OCTs (slice 64 only, Topcon e.g. the UK Biobank data:
-```python3 OCT_AAE.py```
+### For OCTs (slice 64 only):
+```python3 OCT_AAE.py
+```
 
-For CFPs:
-```python3 CFP_AAE.py```
+### For CFPs:
+```python3 CFP_AAE.py
+```
 
 ## The outputs
-```The 256 vector embedding files```
+The 256 vector embedding files will be stored in your output directory. Each row will contain (1) the image name (i.e. the original name of each image file), and (2) 256 columns containing each indvidual vector embedding.
