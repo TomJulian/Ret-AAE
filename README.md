@@ -15,7 +15,7 @@ Please begin by downloading the model checkpoints, which are available in the 'r
 
 # Downloading repo
 Download the repo with command:
-git clone https://github.com/TomJulian/Ret-AAE.git
+\git clone https://github.com/TomJulian/Ret-AAE.git\
 
 # Set configs
 Alter the 'config.yaml' file to provide your image directory (containing your CFPs or OCTs, but not a mix of the two) and output directory (where you would like your text file of derived vector embedding values to be saved to). 
@@ -23,18 +23,18 @@ Alter the 'config.yaml' file to provide your image directory (containing your CF
 # Install requirements
 Install the required packages with this code:
 
-python3 -m venve retaae
+\python3 -m venve retaae
 
 source retaae/bin/activate
 
-pip3 install -r ./requirements.txt
+pip3 install -r ./requirements.txt\
 
 # Run model
 For OCTs (slice 64 only, Topcon e.g. the UK Biobank data:
-python3 OCT_AAE.py
+\python3 OCT_AAE.py\
 
 For CFPs:
-python3 CFP_AAE.py
+\python3 CFP_AAE.py\
 
 # The outputs
-The 256 vector embedding files 
+The 256 vector embedding files will be stored in your output directory. Each row will contain (1) the image name (i.e. the original name of each image file), and (2) 256 columns containing each indvidual vector embedding
