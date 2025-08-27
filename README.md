@@ -33,7 +33,10 @@ Alter the 'config.yaml' file to provide your image directory (containing your CF
 ## Install requirements
 Install the required packages with this code:
 
-```python3 -m venve retaae
+```
+cd ./Ret-AAE
+
+python3 -m venve retaae
 
 source retaae/bin/activate
 
