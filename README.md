@@ -21,6 +21,14 @@ Download the model checkpoints from the **Releases** section:
 - `OCT_encoder.pt`  
 - `CFP_encoder.pt`  
 
+The checkpoints can be downloaded directly using the commands:
+```
+# OCT encoder
+wget https://github.com/TomJulian/Ret-AAE/releases/download/Checkpoints/v1_OCT_encoder.pt
+
+# CFP encoder
+wget https://github.com/TomJulian/Ret-AAE/releases/download/Checkpoints/v1_CFP_encoder.pt
+```
 ---
 
 ## Downloading repo
