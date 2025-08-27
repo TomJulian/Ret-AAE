@@ -22,7 +22,7 @@ def load_encoder_only_into_full(model, enc_ckpt_path, strict=False):
     print("Missing keys:", res.missing_keys)
     print("Unexpected keys:", res.unexpected_keys)
 
-load_encoder_only_into_full(model, "./OCT_encoder.pt", strict=False)
+load_encoder_only_into_full(model, "./v1_OCT_encoder.pt", strict=False)
 
 
 model.eval()
@@ -34,7 +34,7 @@ preprocess = transforms.Compose([
 
 images_dir = config['image_dir']
 out_dir = config['out_dir']
-csv_path = os.path.join(out_dir, "CFP_embeddings.csv")
+csv_path = os.path.join(out_dir, "OCT_embeddings.csv")
 
 rows = []
 
