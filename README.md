@@ -18,8 +18,8 @@ These models were trained using UK Biobank data. Therefore, they have been valid
 
 ## Downloading checkpoints
 Download the model checkpoints from the **Releases** section:  
-- `OCT_encoder.pt`  
-- `CFP_encoder.pt`  
+- `v1_OCT_encoder.pt`  
+- `v1_CFP_encoder.pt`  
 
 The checkpoints can be downloaded directly using the commands:
 ```
