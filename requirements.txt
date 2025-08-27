@@ -1,0 +1,8 @@
+pandas
+pip==24.3.1
+torchvision
+torchaudio
+torchinfo
+torch
+pillow
+PyYAML==6.0.2
