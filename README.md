@@ -36,7 +36,7 @@ Install the required packages with this code:
 ```
 cd ./Ret-AAE
 
-python3 -m venve retaae
+python3 -m venv retaae
 
 source retaae/bin/activate
 
