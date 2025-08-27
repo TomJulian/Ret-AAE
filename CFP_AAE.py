@@ -23,7 +23,7 @@ def load_encoder_only_into_full(model, enc_ckpt_path, strict=False):
     print("Missing keys:", res.missing_keys)
     print("Unexpected keys:", res.unexpected_keys)
 
-load_encoder_only_into_full(model, "./CFP_encoder.pt", strict=False)
+load_encoder_only_into_full(model, "./v1_CFP_encoder.pt", strict=False)
 
 
 model.eval()
