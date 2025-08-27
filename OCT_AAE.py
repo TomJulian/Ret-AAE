@@ -8,8 +8,7 @@ import yaml
 
 file="./config.yaml"
 
-config = yaml.load(file, Loader=yaml.FullLoader)
-
+config = yaml.load(open(file, "r"), Loader=yaml.FullLoader)
 # Set device and model parameters
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 input_dim = (1, 224, 224)  # Adjust as needed

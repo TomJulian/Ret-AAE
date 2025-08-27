@@ -8,7 +8,7 @@ import yaml
 
 file="./config.yaml"
 
-config = yaml.load(file, Loader=yaml.FullLoader)
+config = yaml.load(open(file, "r"), Loader=yaml.FullLoader)
 
 # Set device and model parameters
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -19,22 +19,19 @@ latent_dim = 256  # Adjust as needed
 model = newAECBAM4(input_dim, latent_dim).to(device)
 
 # Load the checkpoint (adjust the path and key names as needed)
-checkpoint_path = "/home/dnanexus/ckpt-model-newAECBAM4-run-jumping-resonance-6-epoch-399-time-2025-04-03-0426.pt"
+checkpoint_path = "/home/dnanexus/CFP_encoder.pt"
 #checkpoint = torch.load(checkpoint_path, map_location=device)
 #model.load_state_dict(checkpoint['state_dict'])  # Or simply: model.load_state_dict(checkpoint
 
-def load_ddp_checkpoint(filename, model, optimizer=None):
-    checkpoint = torch.load(filename, map_location=torch.device('cpu'))  # Ensure compatibility with CPU
-    state_dict = checkpoint['model_state_dict']
-    new_state_dict = {}
-    for key, value in state_dict.items():
-        new_key = key.replace("module.", "")  # Remove 'module.' prefix
-        new_state_dict[new_key] = value
-    model.load_state_dict(new_state_dict)
-    if optimizer is not None and 'optimizer_state_dict' in checkpoint:
-        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    return checkpoint.get('epoch', None)  # Return epoch if available
-load_ddp_checkpoint(checkpoint_path, model)
+def load_encoder_only_into_full(model, enc_ckpt_path, strict=False):
+    ckpt = torch.load(enc_ckpt_path, map_location="cpu")
+    enc_sd = ckpt["encoder_state_dict"]
+    res = model.load_state_dict(enc_sd, strict=strict)  # returns an object
+    print("Missing keys:", res.missing_keys)
+    print("Unexpected keys:", res.unexpected_keys)
+
+load_encoder_only_into_full(model, "/home/dnanexus/CFP_encoder.pt", strict=False)
+
 
 model.eval()
 
