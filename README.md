@@ -42,12 +42,10 @@ pip3 install -r ./requirements.txt
 
 ## Run model
 ### For OCTs (slice 64 only):
-```python3 OCT_AAE.py
-```
+```python3 OCT_AAE.py```
 
 ### For CFPs:
-```python3 CFP_AAE.py
-```
+```python3 CFP_AAE.py```
 
 ## The outputs
 The 256 vector embedding files will be stored in your output directory. Each row will contain (1) the image name (i.e. the original name of each image file), and (2) 256 columns containing each indvidual vector embedding.
